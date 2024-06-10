@@ -7,15 +7,23 @@ from keras.models import load_model
 
 app = Flask(__name__)
 
+model_loaded = False
 
 
-# Replace 'path_to_your_model.h5' with the actual path to your HDF5 file
-elnino = load_model('Forcasting_EL_NINO.h5')
 
 
 
 @app.route('/elnino', methods=['POST', 'GET'])
+
 def handle_data():
+
+   global model_loaded  # Access the global flag
+
+  # ... existing code for request handling
+
+  if not model_loaded:
+    elnino = load_model('Forcasting_EL_NINO.h5')
+    model_loaded = True  
    try:
 
       if request.method == 'POST':
