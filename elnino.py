@@ -40,17 +40,17 @@ def handle_data():
          jdata_df = pd.DataFrame([jdata])
 
       # Call predict on the model, reshape for single sample
-      # elnino_forcasting = elnino.predict(jdata_df)
-      # elnino_forcasting = elnino_forcasting.tolist()
-
       elnino_forcasting = elnino.predict(jdata_df)
+      elnino_forcasting = elnino_forcasting.tolist()
+
+      # elnino_forcasting = elnino.predict(jdata_df)
 
   # Use generator expression for response
       elnino_forcasting = make_response(jsonify({
       'elnino forcasting': (val for val in elnino_forcasting[0, 1, 2])
   }))
 # Create response with CORS headers
-      response = make_response(jsonify({'elnino forcasting': elnino_forcasting[0 , 1 , 2]}))
+      # response = make_response(jsonify({'elnino forcasting': elnino_forcasting[0 , 1 , 2]}))
       response.headers['Access-Control-Allow-Origin'] = '*'
       response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
