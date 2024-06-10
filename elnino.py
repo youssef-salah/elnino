@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Replace 'path_to_your_model.h5' with the actual path to your HDF5 file
 elnino = load_model('Forcasting_EL_NINO.h5')
-print("Top-level groups:", list(elnino.keys()))
+
 
 
 @app.route('/elnino', methods=['POST', 'GET'])
