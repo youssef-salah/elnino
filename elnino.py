@@ -38,7 +38,7 @@ def handle_data():
       elnino_forcasting = elnino.predict(jdata_df)
 
   # Use generator expression for response
-     response = make_response(jsonify({
+      elnino_forcasting = make_response(jsonify({
       'elnino forcasting': (val for val in elnino_forcasting[0, 1, 2])
   }))
 # Create response with CORS headers
