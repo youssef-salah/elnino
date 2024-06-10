@@ -7,23 +7,15 @@ from keras.models import load_model
 
 app = Flask(__name__)
 
-model_loaded = False
 
 
-
+# Replace 'path_to_your_model.h5' with the actual path to your HDF5 file
+elnino = load_model('Forcasting_EL_NINO.h5')
+print("Top-level groups:", list(elnino.keys()))
 
 
 @app.route('/elnino', methods=['POST', 'GET'])
-
 def handle_data():
-
-   global model_loaded  # Access the global flag
-
-  # ... existing code for request handling
-
-  if not model_loaded:
-    elnino = load_model('Forcasting_EL_NINO.h5')
-    model_loaded = True  
    try:
 
       if request.method == 'POST':
@@ -43,14 +35,8 @@ def handle_data():
       elnino_forcasting = elnino.predict(jdata_df)
       elnino_forcasting = elnino_forcasting.tolist()
 
-      # elnino_forcasting = elnino.predict(jdata_df)
-
-  # Use generator expression for response
-      elnino_forcasting = make_response(jsonify({
-      'elnino forcasting': (val for val in elnino_forcasting[0, 1, 2])
-  }))
 # Create response with CORS headers
-      # response = make_response(jsonify({'elnino forcasting': elnino_forcasting[0 , 1 , 2]}))
+      response = make_response(jsonify({'elnino forcasting': elnino_forcasting[0 , 1 , 2]}))
       response.headers['Access-Control-Allow-Origin'] = '*'
       response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
       response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
